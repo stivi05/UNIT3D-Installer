@@ -53,6 +53,13 @@ add_pkgs() {
     check $? "Installing PHP Failed!"
 
     echo -e "$IGreen OK $Color_Off"
+
+    # Update Dependencies
+    echo -e "\n$Cyan Updating Dependencies ... $Color_Off"
+
+    apt-get -qq upgrade > /dev/null
+
+    echo -e "$IGreen OK $Color_Off"
 }
 
 # Installs Composer
