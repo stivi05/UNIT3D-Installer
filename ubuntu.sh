@@ -68,7 +68,7 @@ install_composer() {
 installer_pkgs() {
     echo -e "\n$Cyan Adding Installer Packages ... $Color_Off"
 
-    composer install -q > /dev/null 2>&1
+    composer install -qq > /dev/null 2>&1
     check $? "Adding Installer Packages Failed!"
 
     echo -e "$IGreen OK $Color_Off"
