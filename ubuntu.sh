@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export DEBIAN_FRONTEND=noninteractive
+export DEBCONF_NOWARNINGS=yes
 
 source tools/colors.sh
 
