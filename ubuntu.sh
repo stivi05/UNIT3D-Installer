@@ -40,7 +40,7 @@ add_pkgs() {
     # Update apt
     echo -e "\n$Cyan Updating Packages ... $Color_Off"
 
-    apt-get -qq update
+    apt-get -qq update > /dev/null
     check $? "Updating packages Failed!"
 
     echo -e "$IGreen OK $Color_Off"
