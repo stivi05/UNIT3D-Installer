@@ -16,7 +16,6 @@ return [
             'nginx' => 'Web Server',
             'mysql-server' => 'Database Server',
             'supervisor' => 'A Process Control System',
-            'redis-server' => 'In-memory Data Structure Store',
             'nodejs' => 'JavaScript Run-time Environment (Includes npm)',
             'git' => 'Version Control',
             'tmux' => 'Screen Multiplexer',
@@ -25,7 +24,7 @@ return [
             'zip' => 'Compress Files',
             'unzip' => 'Decompress Files',
             'htop' => 'Monitor Server Resources',
-            'libpng12-0' => 'PNG Library',
+            'cron' => 'Process Scheduling Daemon',
         ],
     ]
 
