@@ -18,7 +18,7 @@ Installer for the [UNIT3D Torrent Tracker Platform](https://github.com/HDInnovat
 
 **For Ubuntu 20.04 LTS:**
 ```
-git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
+git clone https://github.com/stivi05/UNIT3D-INSTALLER2.git installer
 cd installer
 sudo ./install.sh
 ```
