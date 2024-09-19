@@ -15,7 +15,7 @@ check_locale() {
     echo -e "\n$Cyan Setting UTF8 ...$Color_Off"
 
     apt-get -qq update
-    apt-get install -qq language-pack-en-base > /dev/null
+    apt-get install -qq apt-utils language-pack-en-base > /dev/null
     export LC_ALL=en_US.UTF-8
     export LANG=en_US.UTF-8
     apt-get install -qq software-properties-common > /dev/null
@@ -48,9 +48,31 @@ add_pkgs() {
     # PHP
     echo -e "\n$Cyan Installing PHP ... $Color_Off"
 
-    apt-get install -qq curl debconf-utils php-pear php8.2-curl php8.2-dev php8.2-gd php8.2-mbstring php8.2-zip php8.2-mysql php8.2-xml php8.2-fpm php8.2-intl php8.2-bcmath php-redis > /dev/null
-    apt-get purge -y '^php7.4.*' > /dev/null
+    apt-get -qq install curl php-pear php8.3-common php8.3-cli php8.3-fpm php8.3-{redis,bcmath,curl,dev,gd,igbinary,intl,mbstring,mysql,opcache,readline,xml,zip} > /dev/null
     check $? "Installing PHP Failed!"
+
+    echo -e "$IGreen OK $Color_Off"
+
+    # Redis
+    echo -e "\n$Cyan Installing Redis ... $Color_Off"
+
+    curl -fsSL https://packages.redis.io/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list > /dev/null
+    apt-get -qq update > /dev/null
+    apt-get -qq install redis > /dev/null
+
+    echo -e "$IGreen OK $Color_Off"
+
+    # Symlink Redis and Enable
+    echo -e "\n$Cyan Symlink and Enabling Redis ... $Color_Off"
+
+    systemctl -q enable --now redis-server
+    systemctl is-active --quiet redis-server && echo -e "$IGreen OK $Color_Off"||echo -e "$IRed NOK $Color_Off"
+
+    # PHP Redis
+    echo -e "\n$Cyan Installing PHP Redis ... $Color_Off"
+
+    printf "\n" | pecl install redis > /dev/null
 
     echo -e "$IGreen OK $Color_Off"
 
@@ -58,6 +80,17 @@ add_pkgs() {
     echo -e "\n$Cyan Updating Dependencies ... $Color_Off"
 
     apt-get -qq upgrade > /dev/null
+
+    echo -e "$IGreen OK $Color_Off"
+
+    # Bun
+    echo -e "\n$Cyan Installing Bun ... $Color_Off"
+
+    apt-get -qq install unzip > /dev/null
+    curl -fsSL https://bun.sh/install | bash >/dev/null 2>&1
+    mv /root/.bun/bin/bun /usr/local/bin/
+    chmod a+x /usr/local/bin/bun
+    . ~/.bashrc
 
     echo -e "$IGreen OK $Color_Off"
 }
