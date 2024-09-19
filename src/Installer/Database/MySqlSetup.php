@@ -61,6 +61,7 @@ class MySqlSetup extends BaseInstaller
             "mysql -e \"CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';\"",
             "mysql -e \"GRANT ALL PRIVILEGES ON $db . * TO '$dbuser'@'localhost'\"",
             "mysql -e \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$root_pass'\"",
+            "mysql -e \"FLUSH PRIVILEGES\"",
             "mysql -e \"DELETE FROM mysql.user WHERE User=''\"",
             "mysql -e \"DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')\"",
         ]);
